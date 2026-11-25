@@ -2,6 +2,8 @@
 //
 
 #include <iostream>
+#include <ctime>
+#include<cstdlib>
 using namespace std;
 void zadanie1();
 void zadanie2();
@@ -9,10 +11,17 @@ void zadanie3();
 void zadanie2_1();
 void zadanie2_2();
 void zadanie2_3();
+void zadanie4();
+void zadanie5();
+void zadanie6();
 int a;
 int b;
 void swap();
+float srednia(int* tab, int size);
 void swap2(int*a,int*b);
+void dodawanie(int* p, int* d,int rozm);
+void mnozenie(int* p, int* d, int rozm);
+void roznica(int* p, int rozm);
 int main()
 {
    // zadanie2_1();
@@ -20,7 +29,10 @@ int main()
     //zadanie2_3();
     //zadanie1();
    // zadanie2();
-    zadanie3();
+   // zadanie3();
+    //zadanie4();
+   // zadanie5();
+    zadanie6();
 }
 void zadanie2_1() {
     const int size = 3;
@@ -112,4 +124,111 @@ void zadanie3() {
         wsk--;
     }
     cout << *wsk;
+}
+void zadanie4() {
+    int size;
+    srand(time(NULL));
+    cout << "podaj rozmiar tablicy: ", cin >> size;
+    int* tab = new int[size];
+    for (int i = 0;i < size;i++) {
+        tab[i] = (rand() % 10) + 1;
+        cout << tab[i] << " ";
+    }
+    cout<<srednia(tab, size);
+    
+}
+float srednia(int* tab, int size) {
+    float sredna = 0;
+    for (int i = 0;i < size;i++) {
+        sredna = *tab + sredna;
+        tab++;
+    }
+    sredna = sredna / size;
+    return sredna;
+}
+void zadanie5() {
+    int rozmiar;
+    cout << "podaj rozmiar tablicy: ", cin >> rozmiar;
+    int* tab = new int[rozmiar];
+    int* tab2 = new int[rozmiar];
+    srand(time(NULL));
+    for (int i = 0;i < rozmiar;i++) {
+        tab[i] = (rand() % 10) + 1;
+        cout << tab[i] << " ";
+        tab2[i] = (rand() % 10) + 1;
+        cout << tab2[i] << endl;
+    }
+    cout << "dodawanie tablic: " << endl;
+    dodawanie(tab, tab2, rozmiar);
+    cout << "mnozenie tablic: " << endl;
+    mnozenie(tab, tab2, rozmiar);
+    roznica(tab, rozmiar);
+    delete tab, tab2;
+}
+void dodawanie(int* p, int* d,int rozm) {
+    int *tab3 = new int[rozm];
+    for (int i = 0;i < rozm;i++) {
+        tab3[i] = *p + *d;
+        p++;
+        d++;
+        cout << tab3[i] << " ";
+    }
+    delete tab3;
+    cout << endl;
+}
+void mnozenie(int* p, int* d, int rozm) {
+    int* tab3 = new int[rozm];
+    for (int i = 0;i < rozm;i++) {
+        tab3[i] = *p * *d;
+        p++;
+        d++;
+        cout << tab3[i] << " ";
+    }
+    cout << endl;
+    delete tab3;
+}
+void roznica(int* p, int rozm) {
+    int max = *p;
+    int min = *p;
+    for (int i = 0;i < rozm;i++) {
+        if (max < *p) {
+            max = *p;
+        }
+        if (min > *p) {
+            min = *p;
+        }
+        p++;
+    }
+    cout << "roznica pomiedzy max i min w pierwszej tablicy: " << max - min << endl;
+
+}
+void zadanie6() {
+    srand(time(NULL));
+    int wiersz;
+    int kolumna;
+    cout << "podaj liczbe wierszy tablic: ", cin >> wiersz;
+    cout << "podaj liczbe kolumn tablic: ", cin >> kolumna;
+    int** tab = new int* [wiersz];
+    int** tab2 = new int* [wiersz];
+    for (int i = 0;i < wiersz;i++) {
+        int* tmp = new int[kolumna];
+        tab[i] = tmp;
+        tab2[i] = tmp;
+        for (int j = 0;j < kolumna;j++) {
+            tab[i][j] = (rand() % 10) + 1;
+            cout << tab[i][j] << " ";
+            tab2[i][j] = (rand() % 10) + 1;
+            cout << tab2[i][j] << endl;
+        }
+    }
+    int** dodane = new int* [wiersz];
+    for (int i = 0;i < wiersz;i++) {
+        int* tmp = new int[kolumna];
+        dodane[i] = tmp;
+        for (int j = 0;j < kolumna;j++) {
+            dodane[i][j] = tab[i][j] + tab[i][j];
+            cout << dodane[i][j] << " ";
+        }
+    }
+    delete tab, tab2, dodane;
 }
