@@ -13,6 +13,14 @@ void zadanie4();
 void zadanie5();
 void zadanie6();
 void zadanie7();
+void zadanie8();
+void zadanie9();
+void zadanie10();
+void zadanie11();
+void zadanie12();
+void zadanie9statystyki(int m[2][2][2], int* j, int* d, int* t);
+void zadanie10statystyki(int*** tablica, int x, int y, int z, int* min, int* max, int* srednia);
+void zadanie11statystyki(int*** tablica, int x, int y, int z, int* min, int* max, int* srednia);
 int a;
 int b;
 void swap();
@@ -23,16 +31,21 @@ void mnozenie(int* p, int* d, int rozm);
 void roznica(int* p, int rozm);
 int main()
 {
-   // zadanie2_1();
+    //zadanie2_1();
     //zadanie2_2();
     //zadanie2_3();
     //zadanie1();
-   // zadanie2();
-   // zadanie3();
+    //zadanie2();
+    //zadanie3();
     //zadanie4();
-   // zadanie5();
+    //zadanie5();
     //zadanie6();
-    zadanie7();
+    //zadanie7();
+    //zadanie8();
+    //zadanie9();
+    //zadanie10();
+    //zadanie11();
+    zadanie12();
 }
 void zadanie2_1() {
     const int size = 3;
@@ -247,6 +260,7 @@ void zadanie7() {
             tab2[i][j] = (rand() % 10) + 1;
             cout << tab2[i][j] << endl;
         }
+        cout << endl;
     }
     int** mnozenie = new int* [dlugosc];
     for (int i = 0;i < dlugosc;i++) {
@@ -266,3 +280,172 @@ void zadanie7() {
     delete[]tab2;
     delete[]mnozenie;
     }
+void zadanie8() {
+    srand(time(NULL));
+    int wiersz;
+    int kolumna;
+    cout << "podaj liczbe wierszy macierzy: ", cin >> wiersz;
+    cout << "podaj liczbe kolumn macierzy: ", cin >> kolumna;
+    int** tab = new int* [wiersz];
+    for (int i = 0;i < wiersz;i++) {
+        tab[i] = new int[kolumna];
+        for (int j = 0;j < kolumna;j++) {
+            tab[i][j] = (rand() % 10) + 1;
+            cout << tab[i][j] << "  ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+    int** tabt = new int* [kolumna];
+    for (int i = 0;i < kolumna;i++) {
+        tabt[i] = new int[wiersz];
+        for (int j = 0;j < wiersz;j++) {
+            tabt[i][j] = tab[j][i];
+            cout << tabt[i][j] << "  ";
+        }
+        cout << endl;
+    }
+    for (int i = 0;i < wiersz;i++) {
+        delete[] tab[i];
+        delete[]tabt[i];
+    }
+    delete[]tab;
+    delete[]tabt;
+}
+void zadanie9() {
+    int srednia = 0;
+    
+    int tab[2][2][2] = { { { 1,2 },{ 4,8 } },{ { 7,5 },{ 34,6 } } };
+    int max=tab[0][0][0];
+    int min=tab[0][0][0];
+    zadanie9statystyki(tab,&max,&min,&srednia);
+    cout << " srednia ze wszystkich pol: " << srednia << " maximum: " << max << " minimum: " << min;
+}
+void zadanie9statystyki(int m[2][2][2], int* j, int* d, int* t) {
+  
+    for (int i = 0;i < 2;i++) {
+        for (int o = 0;o < 2;o++) {
+            for (int k = 0;k < 2;k++) {
+                *t = *t + m[i][o][k];
+                if (*j < m[i][o][k]) {
+                    *j = m[i][o][k];
+                }
+                if (*d > m[i][o][k]) {
+                    *d = m[i][o][k];
+                }
+            }
+        }
+    }
+    *t = *t / 8;
+}
+void zadanie10() {
+    srand(time(NULL));
+    int jeden, dwa, trzy;
+    cout << "podaj pierwsza wspolrzeda: ", cin >> jeden;
+    int*** tab = new int**[jeden];
+    cout << "podaj druga wspolrzeda: ", cin >> dwa;
+    cout << "podaj trzecia wspolrzeda: ", cin >> trzy;
+        for (int i = 0;i < jeden;i++) {
+            tab[i] = new int* [dwa];
+            for (int j = 0;j < dwa;j++) {
+                tab[i][j] = new int[trzy];
+                for (int k = 0;k < trzy;k++) {
+                    tab[i][j][k] = (rand() % 10) + 1;
+                }
+            }
+    }
+        int min = tab[0][0][0];
+        int max = tab[0][0][0];
+        int srednia = 0;
+        zadanie10statystyki(tab, jeden, dwa, trzy, &min, &max, &srednia);
+        cout << "srednia: " << srednia << " maximum: " << max << " minimum: " << min << endl;
+        for (int i = 0;i < jeden;i++) {
+            for (int j = 0;j < dwa;j++) {
+                delete[]tab[i][j];
+            }
+            delete[]tab[i];
+        }
+        delete tab;
+}
+void zadanie10statystyki(int*** tablica,int x,int y,int z,int*min,int*max,int*srednia) {
+
+    for (int i = 0;i < x;i++) {
+        for (int o = 0;o < y;o++) {
+            for (int k = 0;k < z;k++) {
+                *srednia = *srednia + tablica[i][o][k];
+                if (*max < tablica[i][o][k]) {
+                    *max = tablica[i][o][k];
+                }
+                if (*min > tablica[i][o][k]) {
+                    *min = tablica[i][o][k];
+                }
+            }
+        }
+    }
+    *srednia = *srednia / (x + y + z);
+}
+void zadanie11() {
+    srand(time(NULL));
+    int jeden, dwa, trzy;
+    cout << "podaj pierwsza wspolrzeda: ", cin >> jeden;
+    int*** tab = new int** [jeden];
+    cout << "podaj druga wspolrzeda: ", cin >> dwa;
+    cout << "podaj trzecia wspolrzeda: ", cin >> trzy;
+    for (int i = 0;i < jeden;i++) {
+        tab[i] = new int* [dwa];
+        for (int j = 0;j < dwa;j++) {
+            tab[i][j] = new int[trzy];
+            for (int k = 0;k < trzy;k++) {
+                tab[i][j][k] = (rand() % 217) -2;
+            }
+        }
+    }
+    int min = tab[0][0][0];
+    int max = tab[0][0][0];
+    int srednia = 0;
+    zadanie11statystyki(tab, jeden, dwa, trzy, &min, &max, &srednia);
+    cout << "srednia: " << srednia << " maximum: " << max << " minimum: " << min << endl;
+    for (int i = 0;i < jeden;i++) {
+        for (int j = 0;j < dwa;j++) {
+
+            delete[]tab[i][j];
+        }
+        delete[]tab[i];
+    }
+    delete tab;
+}
+void zadanie11statystyki(int*** tablica, int x, int y, int z, int* min, int* max, int* srednia){
+    for (int i = 0;i < x;i++) {
+        for (int o = 0;o < y;o++) {
+            for (int k = 0;k < z;k++) {
+                *srednia = *srednia + tablica[i][o][k];
+                if (*max < tablica[i][o][k]) {
+                    *max = tablica[i][o][k];
+                }
+                if (*min > tablica[i][o][k]) {
+                    *min = tablica[i][o][k];
+                }
+            }
+        }
+    }
+    *srednia = *srednia / (x+y+z);
+}
+void zadanie12() {//nie mam pewnosci o co chodzi w zadaniu wiec zrobie jak mi sie wydaje
+    int** tab = new int* [10];
+    for (int i = 0;i < 10;i++) {
+        tab[i] = new int[i+1];
+        for (int j = 0;j <=i;j++) {
+            tab[i][j] = (i + 1) * (1+j);
+        }
+    }
+    for (int i = 0;i < 10;i++) {
+        for (int j = 0;j <= i;j++) {
+            cout << tab[i][j] << " ";
+        }
+        cout << endl;
+    }
+    for (int i = 0;i < 10;i++) {
+        delete[]tab[i];
+    }
+    delete[]tab;
+}
