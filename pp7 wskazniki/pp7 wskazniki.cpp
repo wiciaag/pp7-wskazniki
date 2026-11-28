@@ -1,5 +1,3 @@
-// pp7 wskazniki.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <ctime>
@@ -14,6 +12,7 @@ void zadanie2_3();
 void zadanie4();
 void zadanie5();
 void zadanie6();
+void zadanie7();
 int a;
 int b;
 void swap();
@@ -32,7 +31,8 @@ int main()
    // zadanie3();
     //zadanie4();
    // zadanie5();
-    zadanie6();
+    //zadanie6();
+    zadanie7();
 }
 void zadanie2_1() {
     const int size = 3;
@@ -232,3 +232,37 @@ void zadanie6() {
     }
     delete tab, tab2, dodane;
 }
+void zadanie7() {
+    srand(time(NULL));
+    int dlugosc;
+    cout << "jak duze maja byc macierze, ktore chcesz poprzemnazac? ", cin >> dlugosc;
+    int** tab1 = new int*[dlugosc];
+    int** tab2 = new int* [dlugosc];
+    for (int i = 0;i < dlugosc;i++) {
+        tab1[i] = new int[dlugosc];
+        tab2[i] = new int[dlugosc];
+        for (int j = 0;j < dlugosc;j++) {
+            tab1[i][j] = (rand() % 10) + 1;
+            cout << tab1[i][j] << "    ";
+            tab2[i][j] = (rand() % 10) + 1;
+            cout << tab2[i][j] << endl;
+        }
+    }
+    int** mnozenie = new int* [dlugosc];
+    for (int i = 0;i < dlugosc;i++) {
+        mnozenie[i] = new int[dlugosc];
+        for (int j = 0;j < dlugosc;j++) {
+            mnozenie[i][j] = tab1[i][j] * tab2[i][j];
+            cout << mnozenie[i][j] << "   ";
+        }
+    }
+    for (int i = 0;i < dlugosc;i++) {
+        
+            delete[] tab1[i];
+            delete[]tab2[i];
+            delete[]mnozenie[i];
+    }
+    delete[]tab1;
+    delete[]tab2;
+    delete[]mnozenie;
+    }
